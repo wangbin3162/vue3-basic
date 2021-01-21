@@ -1,14 +1,15 @@
+<!--suppress TypeScriptValidateTypes -->
 <template>
   <div class="bin-ace-editor" ref="root" :style="wrapStyles"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
+import { defineComponent, computed, onMounted, onUnmounted, ref, watch, nextTick, toRefs } from 'vue'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ace = require('brace')
 
-function px(n) {
+function px(n: string) {
   return /^\d*$/.test(n) ? `${n}px` : n
 }
 
@@ -50,10 +51,10 @@ export default defineComponent({
       default: true,
     },
   },
-  setup(props, { emit }) {
-    const root = ref()
-    const contentBackup = ref('')
-    let editor = null
+  setup: function(props, { emit }) {
+    const root = ref<null | HTMLElement>()
+    const contentBackup = ref<string>('')
+    let editor: any = null
     // eslint-disable-next-line vue/no-setup-props-destructure
     const { lang, theme, fontSize, readonly, wrap, snippets, width, height, styles } = props
     // 样式容器
@@ -72,15 +73,13 @@ export default defineComponent({
     const handleBlur = () => {
       emit('blur', props.modelValue)
     }
-    const updateValue = (value) => {
+    const updateValue = (value: string) => {
       emit('update:modelValue', value)
     }
-
     // 监听器
     watch(() => props.modelValue, (val) => {
       if (editor && contentBackup.value !== val) {
         editor.session.setValue(val)
-        contentBackup.value = val
       }
     })
     watch(() => props.theme, (val) => {
