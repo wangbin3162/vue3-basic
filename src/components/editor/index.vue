@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, onUnmounted, ref, watch, nextTick, toRefs } from 'vue'
+import { defineComponent, computed, onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ace = require('brace')
@@ -54,6 +54,7 @@ export default defineComponent({
   setup: function(props, { emit }) {
     const root = ref<null | HTMLElement>()
     const contentBackup = ref<string>('')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let editor: any = null
     // eslint-disable-next-line vue/no-setup-props-destructure
     const { lang, theme, fontSize, readonly, wrap, snippets, width, height, styles } = props

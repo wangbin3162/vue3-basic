@@ -10,20 +10,25 @@
           height="300"
           :theme="theme"
           :readonly="readonly"
-          :font-size="fontSize" />
+          :font-size="fontSize"
+        />
       </a-col>
       <a-col :span="12">
-        <div style="padding: 20px;">
+        <div style="padding: 20px">
           <p>
             文字大小：
             <a-input-number v-model:value="fontSize" :min="12" :max="16" />
             只读：
             <a-switch v-model:checked="readonly" />
           </p>
-          <p>皮肤：
+          <p>
+            皮肤：
             <a-radio-group v-model:value="theme">
               <a-radio v-for="item in themeList" :key="item" :value="item">{{ item }}</a-radio>
             </a-radio-group>
+          </p>
+          <p>
+            <a-button>测试antd按钮</a-button>
           </p>
         </div>
       </a-col>
@@ -34,34 +39,6 @@
 <script>
 import BinAceEditor from '../components/editor'
 import { defineComponent, ref, reactive } from 'vue'
-
-require('brace/ext/emmet')
-require('brace/ext/language_tools') // language extension
-const language = ['json', 'javascript', 'markdown', 'sql', 'java', 'elixir', 'html', 'css', 'stylus']
-const theme = [
-  'chrome',
-  'xcode',
-  'clouds',
-  'crimson_editor',
-  'sqlserver',
-  'github',
-  'textmate',
-  'tomorrow',
-  'solarized_light',
-  'cobalt',
-  'dracula',
-  'monokai',
-  'solarized_dark',
-  'terminal',
-  'vibrant_ink',
-]
-language.forEach(lang => {
-  require('brace/mode/' + lang)
-  require('brace/snippets/' + lang)
-})
-theme.forEach(item => {
-  require('brace/theme/' + item)
-})
 
 const jsonData = {
   title: '测试json数据',
